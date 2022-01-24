@@ -1,13 +1,14 @@
 Vue.createApp({
     data() {
         return {
-            items: ["朝ごはんたべる", "歯を磨く"],
+            items:[],
             todo: "",
         };
     },
     methods: {
         todoAddition: function () {
             this.items.push(this.todo);
+            localStorage.setItem('mydata',JSON.stringify(this.items));
         },
         todoDelete: function (index) {
             this.items.splice(index, 1);
