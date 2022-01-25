@@ -1,18 +1,31 @@
 Vue.createApp({
     data() {
         return {
-            items:[],
+            items: [],
             todo: "",
         };
     },
     methods: {
         todoAddition: function () {
             this.items.push(this.todo);
-            localStorage.setItem('mydata',JSON.stringify(this.items));
+            // ﾛｰｶﾙストレージにセット
+            localStorage.setItem('mydata', JSON.stringify(this.items));
+
         },
         todoDelete: function (index) {
             this.items.splice(index, 1);
-            console.log(index);
+            // 一度ストレージの値を取り出す
+            let storageItem = JSON.parse(localStorage.getItem('mydata'));
+            storageItem.splice(index, 1);
+            // 削除したのちもう一度セット
+            localStorage.setItem('mydata', JSON.stringify(storageItem));
+        },
+    },
+    created: function () {
+        const mydata = localStorage.getItem('mydata');
+        if (mydata) {
+            this.items = JSON.parse(mydata);
         }
     },
+
 }).mount('#app')
